@@ -15,20 +15,33 @@ body {
 	height: 100vh;
 }
 
-.page {
-	min-height: 100dvh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+footer {
+	width: 100%;
 }
 
-.gallery-row {
-	display: flex;
-	align-content: space-between;
+h1 {
+	margin: 2vh;
+}
+
+h2,
+h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+a.pronouns {
+	margin: 0;
 }
 
 main {
 	flex: 1;
+}
+
+.boxes {
+	display: flex;
+	gap: 10vw;
+	margin-bottom: 10vh;
+	margin: 0px 5vw 10vh 5vw
 }
 
 button:focus,
@@ -47,13 +60,22 @@ select:focus-visible {
 	outline: 1px solid var(--color);
 }
 
-.boxes {
+.page {
+	min-height: 100dvh;
 	display: flex;
-	gap: 10vw;
+	flex-direction: column;
+	align-items: center;
 }
 
-.box-container h2 {
+#intro {
+	margin-bottom: max(50px, 5vh);
+}
+
+
+
+.box-header {
 	text-align: left;
+	margin-bottom: 0.5vh;
 }
 
 .box {
@@ -63,10 +85,6 @@ select:focus-visible {
 	border: 1px solid var(--color);
 	line-height: 250%;
 	font-size: clamp(12px, 20px, 40px);
-}
-
-footer {
-	width: 100%;
 }
 
 .footer-links {
@@ -80,13 +98,12 @@ footer {
 
 }
 
+@media screen and (max-width: 1000px) {
+	.footer-links {
+		flex-direction: column;
+	}
 
-h1 {
-	margin-bottom: 0;
-}
-
-h2 {
-	margin-bottom: 16px;
+	.pics button {}
 }
 
 a:not(.btn) {
