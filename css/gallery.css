@@ -18,6 +18,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	gap: 1vw;
 }
 
 .pics button {
@@ -40,7 +41,6 @@
 	border: none;
 	background: transparent;
 	cursor: pointer;
-
 	height: 75%;
 	overflow: hidden;
 }
