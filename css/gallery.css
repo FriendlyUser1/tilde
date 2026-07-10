@@ -1,0 +1,100 @@
+.page {
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.gallery {
+	display: flex;
+	width: 90vw;
+	flex-direction: column;
+	gap: 10vh;
+}
+
+
+.pics {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.pics button {
+	height: 240px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+@media screen and (max-width: 1000px) {
+	.pics {
+		flex-wrap: no-wrap;
+	}
+
+	.pics button {}
+}
+
+.tile {
+	padding: 0;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+
+	height: 75%;
+	overflow: hidden;
+}
+
+.tile img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	transition: transform .25s ease;
+}
+
+.tile:hover img {
+	transform: scale(1.01);
+}
+
+.popup {
+	position: fixed;
+	inset: 0;
+	display: none;
+	place-items: center;
+	padding: 16px;
+	background: rgba(0, 0, 0, .75);
+	z-index: 1000;
+}
+
+.popup[aria-hidden="false"] {
+	display: grid;
+}
+
+.popup-inner {
+	width: min(1000px, 100%);
+	height: min(100dvh - 32px, 900px);
+	border: 1px solid rgba(255, 255, 255, .2);
+	background: #000;
+	overflow: hidden;
+}
+
+.popup-img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+.popup-close {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 40px;
+	height: 40px;
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, .2);
+	background: rgba(0, 0, 0, .4);
+	color: #fff;
+	cursor: pointer;
+}
