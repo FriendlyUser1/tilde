@@ -27,14 +27,13 @@ function parseMarkdown(markdown) {
 		const headingMatch = line.match(/^(#+)/g);
 		if (headingMatch) {
 			output.push(
-				`<h${headingMatch.length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch.length}>${post}`,
+				`<h${headingMatch[0].length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch[0].length}>${post}`,
 			);
 			continue;
 		}
 
 		const imgMatch = Array.from(line.matchAll(/!\[(.+?)\]\((.+?)\)/g))[0];
 		if (imgMatch) {
-			console.log(imgMatch);
 			imgs.push({ alt: imgMatch[1], path: imgMatch[2] });
 			continue;
 		}

@@ -28,8 +28,6 @@ async function makePost(date, postEl, picsEl) {
 	postEl.innerHTML = parsed;
 
 	for (const pic of pics) {
-		console.log(pic);
-
 		const button = document.createElement("button");
 		button.className = "tile";
 		button.type = "button";
