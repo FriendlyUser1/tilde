@@ -87,7 +87,7 @@ footer {
 }
 
 .footer-section p {
-	text-decoration: underline dashed;
+	font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {
