@@ -72,6 +72,10 @@ footer {
 	width: 100%;
 }
 
+footer * {
+	list-style: none;
+}
+
 .footer-sections {
 	font-size: clamp(12px, 20px, 40px);
 	background-color: black;
@@ -81,8 +85,8 @@ footer {
 	justify-content: space-around;
 }
 
+
 .footer-section ul {
-	list-style: none;
 	padding: 0;
 }
 
