@@ -10,6 +10,7 @@
 /**
  * parse markdown
  * @param {string} markdown
+ * @returns {[string, {alt: string; src: string;}[]]}
  */
 function parseMarkdown(markdown) {
 	const lines = markdown.split("\n");
@@ -18,27 +19,37 @@ function parseMarkdown(markdown) {
 	for (let line of lines) {
 		if (line.trim().length == 0) continue;
 
+		let links = [];
+
+		[line, links] = parseLinks(line);
+
 		line = parseEmphasis(line);
 
-		let post = "";
+		for (let i = 0; i < links.length; i++) {
+			line = line.replace("LINK_PLACEHOLDER", links[i]);
+		}
 
-		if (line.endsWith("  ")) post = "</br>";
+		let after = "";
+
+		if (line.endsWith("  ")) after = "</br>";
 
 		const headingMatch = line.match(/^(#+)/g);
 		if (headingMatch) {
 			output.push(
-				`<h${headingMatch[0].length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch[0].length}>${post}`,
+				`<h${headingMatch[0].length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch[0].length}>${after}`,
 			);
 			continue;
 		}
 
-		const imgMatch = Array.from(line.matchAll(/!\[(.+?)\]\((.+?)\)/g))[0];
-		if (imgMatch) {
+		const imgMatches = Array.from(line.matchAll(/!\[(.+?)\]\((.+?)\)/g));
+
+		for (const imgMatch of imgMatches) {
 			imgs.push({ alt: imgMatch[1], path: imgMatch[2] });
-			continue;
 		}
 
-		output.push(`<p>${line}</p>${post}`);
+		if (imgMatches.length > 0) continue;
+
+		output.push(`<p>${line}</p>${after}`);
 	}
 
 	return [output.join("\n"), imgs];
@@ -56,6 +67,7 @@ function parseEmphasis(markdown) {
 
 	let mdLen = 0;
 	let inPhrase = false;
+	let inLink = false;
 
 	let last = chars[0];
 	if (last == "*") {
@@ -64,6 +76,17 @@ function parseEmphasis(markdown) {
 
 	for (let i = 1; i < chars.length; i++) {
 		const char = chars[i];
+
+		if (
+			last == "<" &&
+			char == "a" &&
+			i + 1 < chars.length &&
+			chars[i + 1] == ">"
+		) {
+			inLink = true;
+		}
+
+		if (inLink) continue;
 
 		if (char == "*") {
 			if (!inPhrase) {
@@ -98,4 +121,27 @@ function parseEmphasis(markdown) {
 	}
 
 	return newChars.join("");
+}
+
+/**
+ * parse []() links
+ * @param {string} markdown
+ */
+function parseLinks(markdown) {
+	const linkMatches = Array.from(markdown.matchAll(/[^!]\[(.+?)\]\((.+?)\)/g));
+	const links = [];
+
+	for (const linkMatch of linkMatches) {
+		links.push(linkMatch[2]);
+	}
+
+	if (links.length == 0) return [markdown, links];
+
+	return [
+		markdown.replace(
+			/\[(.+?)\]\((.+?)\)/g,
+			`<a target="_blank" href="LINK_PLACEHOLDER">$1</a>`,
+		),
+		links,
+	];
 }
