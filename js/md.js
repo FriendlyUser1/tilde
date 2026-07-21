@@ -3,8 +3,8 @@
 /*
 	features: headings, paragraphs, all emphasis (tho only asterisks), images (or at least returns the alt and src)
 	this also assumes you dont make mistakes with the amount of asterisks lol
-
-	any linebreak for new paragraph, double space at end of line for br
+	
+	double linebreak for new paragraph
 */
 
 /**
@@ -13,7 +13,8 @@
  * @returns {[string, {alt: string; src: string;}[]]}
  */
 function parseMarkdown(markdown) {
-	const lines = markdown.split("\n");
+	const lines = markdown.split("\n\n");
+	console.log(lines);
 	const output = [];
 	const imgs = [];
 	for (let line of lines) {
@@ -29,14 +30,10 @@ function parseMarkdown(markdown) {
 			line = line.replace("LINK_PLACEHOLDER", links[i]);
 		}
 
-		let after = "";
-
-		if (line.endsWith("  ")) after = "</br>";
-
 		const headingMatch = line.match(/^(#+)/g);
 		if (headingMatch) {
 			output.push(
-				`<h${headingMatch[0].length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch[0].length}>${after}`,
+				`<h${headingMatch[0].length}>${line.split(" ").slice(1).join(" ")}</h${headingMatch[0].length}>`,
 			);
 			continue;
 		}
@@ -49,7 +46,7 @@ function parseMarkdown(markdown) {
 
 		if (imgMatches.length > 0) continue;
 
-		output.push(`<p>${line}</p>${after}`);
+		output.push(`<p>${line}</p>`);
 	}
 
 	return [output.join("\n"), imgs];

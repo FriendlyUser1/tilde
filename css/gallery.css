@@ -14,6 +14,10 @@
 	margin-bottom: 10vh;
 }
 
+.post-container {
+	max-width: 80vw;
+	align-self: center;
+}
 
 .pics {
 	display: flex;

@@ -6,6 +6,7 @@
 html,
 body {
 	margin: 0;
+	height: 100%;
 }
 
 body {
@@ -13,7 +14,7 @@ body {
 	background-color: rgb(69, 64, 73);
 	color: var(--color);
 	text-align: center;
-	height: 100vh;
+	height: 100%;
 }
 
 
