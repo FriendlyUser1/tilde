@@ -14,7 +14,6 @@
  */
 function parseMarkdown(markdown) {
 	const lines = markdown.split("\n\n");
-	console.log(lines);
 	const output = [];
 	const imgs = [];
 	for (let line of lines) {
